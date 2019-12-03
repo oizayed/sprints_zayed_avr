@@ -23,7 +23,8 @@ typedef signed char sint8;
 typedef signed int sint16;
 typedef signed long int sint32;
 typedef signed long long sint64;
-typedef volatile uint8* const reg_type;
+typedef volatile uint8* const reg_type8;
+typedef volatile uint16* const reg_type16;
 
 
 /************************************************************************/
@@ -38,5 +39,24 @@ typedef volatile uint8* const reg_type;
 /************************************************************************/
 #define LOW  0		// defines LOW value for a bit
 #define HIGH 0xFF	// defines HIGH value for a bit
+
+
+/************************************************************************/
+/*						 BIT_MATH defines                               */
+/************************************************************************/
+
+/* Set VARiable's Certin BIT High */
+#define SET_BIT(VAR,BIT_NB) 		(VAR)|=(BIT_NB)
+
+/* Set VARiable's Certin BIT Low */
+#define CLR_BIT(VAR,BIT_NB) 		(VAR)&=~(BIT_NB)
+
+/* Toggle VARiable's Certin BIT */
+#define TOGGLE_BIT(VAR,BIT_NB) 		(VAR)^=(Bit_NB)
+
+
+/* Get VARiable's Certin BIT Value */
+#define GET_BIT(VAR,BIT_NB) 		(((VAR)&(BIT_NB))/(BIT_NB))
+
 
 #endif /* STD_TYPES_H_ */

@@ -12,31 +12,31 @@
 /*
  * General Registers
  */
-#define MCUCR		
-#define MCUCSR		
-#define GICR		
-#define GIFR		
+#define MCUCR					*((reg_type8)(0x55))
+#define MCUCSR					*((reg_type8)(0x54))
+#define GICR					*((reg_type8)(0x5B))
+#define GIFR					*((reg_type8)(0x5A))
 
 /*
  * PORTx registers
  */
 
-#define PORTA_DATA 	
-#define PORTA_DIR  	
-#define PORTA_PIN	
+#define PORTA_DATA 				*((reg_type8)(0x3B))
+#define PORTA_DIR  	            *((reg_type8)(0x3A))
+#define PORTA_PIN	            *((reg_type8)(0x39))
 
-#define PORTB_DATA 	
-#define PORTB_DIR  	
-#define PORTB_PIN	
+#define PORTB_DATA 	            *((reg_type8)(0x38))
+#define PORTB_DIR  	            *((reg_type8)(0x37))
+#define PORTB_PIN	            *((reg_type8)(0x36))
 
-#define PORTC_DATA 	
-#define PORTC_DIR  	
-#define PORTC_PIN	
+#define PORTC_DATA 	            *((reg_type8)(0x35))
+#define PORTC_DIR  	            *((reg_type8)(0x34))
+#define PORTC_PIN	            *((reg_type8)(0x33))
 
 
-#define PORTD_DATA 	
-#define PORTD_DIR  	
-#define PORTD_PIN	
+#define PORTD_DATA 				*((reg_type8)(0x32))
+#define PORTD_DIR  				*((reg_type8)(0x31))
+#define PORTD_PIN				*((reg_type8)(0x30))
 
 
 /*
