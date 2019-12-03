@@ -7,7 +7,8 @@
 
 #ifndef REGISTERS_H_
 #define REGISTERS_H_
-#include "std_types.h"
+
+#include "../utils/std_types.h"
 
 /*
  * General Registers

@@ -8,7 +8,7 @@
 #ifndef LEDCONFIG_H_
 #define LEDCONFIG_H_
 
-#include "gpio.h"
+#include "../../mcal/gpio/gpio.h"
 
 /*
  * This macro define the maximum used leds

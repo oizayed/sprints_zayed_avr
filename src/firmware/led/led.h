@@ -8,8 +8,8 @@
 #ifndef LED_H_
 #define LED_H_
 
-#include "gpio.h"
-#include "std_types.h"
+#include "../../mcal/gpio/gpio.h"
+#include "../../utils/std_types.h"
 #include "ledConfig.h"
 
 typedef enum En_LedNumber_t{

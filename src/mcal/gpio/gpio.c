@@ -29,20 +29,17 @@ void gpioPortDirection(uint8 port, uint8 direction)
 		PORTA_DIR = direction;
 		break;
 	case GPIOB :
-		PORTA_DIR = direction;
+		PORTB_DIR = direction;
 		break;
 	case GPIOC :
-		PORTA_DIR = direction;
+		PORTC_DIR = direction;
 		break;
 	case GPIOD :
-		PORTA_DIR = direction;
+		PORTD_DIR = direction;
 		break;
-	default :
-
-
-
+	default : // Handle this case
+		break;
 	}
-
 }
 
 /**
@@ -58,7 +55,23 @@ void gpioPortDirection(uint8 port, uint8 direction)
  */
 void gpioPortWrite(uint8 port, uint8 value)
 {
-
+	switch(port)
+	{
+	case GPIOA :
+		PORTA_DATA = value;
+		break;
+	case GPIOB :
+		PORTB_DATA = value;
+		break;
+	case GPIOC :
+		PORTC_DATA = value;
+		break;
+	case GPIOD :
+		PORTD_DATA = value;
+		break;
+	default : // Handle this case
+		break;
+	}
 }
 
 /**
@@ -71,7 +84,23 @@ void gpioPortWrite(uint8 port, uint8 value)
  */
 void gpioPortToggle(uint8 port)
 {
-
+	switch(port)
+	{
+	case GPIOA :
+		PORTA_DATA = ~PORTA_DATA;
+		break;
+	case GPIOB :
+		PORTB_DATA = ~PORTB_DATA;
+		break;
+	case GPIOC :
+		PORTC_DATA = ~PORTC_DATA;
+		break;
+	case GPIOD :
+		PORTD_DATA = ~PORTD_DATA;
+		break;
+	default : // Handle this case
+		break;
+	}
 }
 
 /**
@@ -85,7 +114,25 @@ void gpioPortToggle(uint8 port)
  */
 uint8 gpioPortRead(uint8 port)
 {
-
+	uint8 out;
+	switch(port)
+	{
+	case GPIOA :
+		out = PORTA_PIN;
+		break;
+	case GPIOB :
+		out = PORTB_PIN;
+		break;
+	case GPIOC :
+		out = PORTC_PIN;
+		break;
+	case GPIOD :
+		out = PORTD_PIN;
+		break;
+	default : // Handle this case
+		break;
+	}
+	return out;
 }
 
 /*===========================PIN Control===============================*/
@@ -114,6 +161,24 @@ uint8 gpioPortRead(uint8 port)
  */
 void gpioPinDirection(uint8 port, uint8 pins, uint8 direction)
 {
+	switch(port)
+	{
+	case GPIOA :
+		ASSIGN_BIT(PORTA_DIR, pins, direction);
+		break;
+	case GPIOB :
+		ASSIGN_BIT(PORTB_DIR, pins, direction);
+		break;
+	case GPIOC :
+		ASSIGN_BIT(PORTC_DIR, pins, direction);
+		break;
+	case GPIOD :
+		ASSIGN_BIT(PORTD_DIR, pins, direction);
+		break;
+	default : // Handle this case
+		break;
+	}
+
 
 }
 
@@ -138,7 +203,23 @@ void gpioPinDirection(uint8 port, uint8 pins, uint8 direction)
  */
 void gpioPinWrite(uint8 port, uint8 pins, uint8 value)
 {
-
+	switch(port)
+	{
+	case GPIOA :
+		ASSIGN_BIT(PORTA_DATA, pins, value);
+		break;
+	case GPIOB :
+		ASSIGN_BIT(PORTB_DATA, pins, value);
+		break;
+	case GPIOC :
+		ASSIGN_BIT(PORTC_DATA, pins, value);
+		break;
+	case GPIOD :
+		ASSIGN_BIT(PORTD_DATA, pins, value);
+		break;
+	default : // Handle this case
+		break;
+	}
 }
 
 /**
@@ -162,6 +243,23 @@ void gpioPinWrite(uint8 port, uint8 pins, uint8 value)
 void gpioPinToggle(uint8 port, uint8 pins)
 {
 
+	switch(port)
+	{
+	case GPIOA :
+		TOGGLE_BIT(PORTA_DATA, pins);
+		break;
+	case GPIOB :
+		TOGGLE_BIT(PORTB_DATA, pins);
+		break;
+	case GPIOC :
+		TOGGLE_BIT(PORTC_DATA, pins);
+		break;
+	case GPIOD :
+		TOGGLE_BIT(PORTD_DATA, pins);
+		break;
+	default : // Handle this case
+		break;
+	}
 }
 
 /**
@@ -186,7 +284,25 @@ void gpioPinToggle(uint8 port, uint8 pins)
  */
 uint8 gpioPinRead(uint8 port, uint8 pin)
 {
-
+	uint8 out;
+	switch(port)
+	{
+	case GPIOA :
+		out = GET_BIT(PORTA_PIN, pin);
+		break;
+	case GPIOB :
+		out = GET_BIT(PORTB_PIN, pin);
+		break;
+	case GPIOC :
+		out = GET_BIT(PORTC_PIN, pin);
+		break;
+	case GPIOD :
+		out = GET_BIT(PORTD_PIN, pin);
+		break;
+	default : // Handle this case
+		break;
+	}
+	return out;
 }
 
 /*===========================Upper Nibble Control===============================*/
@@ -201,6 +317,28 @@ uint8 gpioPinRead(uint8 port, uint8 pin)
  */
 void gpioUpperNibbleDirection(uint8 port, uint8 direction)
 {
+	direction &= 0b11110000;
+	switch(port)
+	{
+	case GPIOA :
+		PORTA_DIR &= 0b00001111;
+		PORTA_DIR |= direction;
+		break;
+	case GPIOB :
+		PORTB_DIR &= 0b00001111;
+		PORTB_DIR |= direction;
+		break;
+	case GPIOC :
+		PORTC_DIR &= 0b00001111;
+		PORTC_DIR |= direction;
+		break;
+	case GPIOD :
+		PORTD_DIR &= 0b00001111;
+		PORTD_DIR |= direction;
+		break;
+	default : // Handle this case
+		break;
+	}
 
 }
 
@@ -215,6 +353,28 @@ void gpioUpperNibbleDirection(uint8 port, uint8 direction)
  */
 void gpioUpperNibbleWrite(uint8 port, uint8 value)
 {
+	value &= 0b11110000;
+	switch(port)
+	{
+	case GPIOA :
+		PORTA_DATA &= 0b00001111;
+		PORTA_DATA |= value;
+		break;
+	case GPIOB :
+		PORTB_DATA &= 0b00001111;
+		PORTB_DATA |= value;
+		break;
+	case GPIOC :
+		PORTC_DATA &= 0b00001111;
+		PORTC_DATA |= value;
+		break;
+	case GPIOD :
+		PORTD_DATA &= 0b00001111;
+		PORTD_DATA |= value;
+		break;
+	default : // Handle this case
+		break;
+	}
 
 }
 
@@ -228,6 +388,35 @@ void gpioUpperNibbleWrite(uint8 port, uint8 value)
  */
 void gpioUpperNibbleToggle(uint8 port)
 {
+	switch(port)
+	{
+	case GPIOA :
+		TOGGLE_BIT(PORTA_DATA,BIT7);
+		TOGGLE_BIT(PORTA_DATA,BIT6);
+		TOGGLE_BIT(PORTA_DATA,BIT5);
+		TOGGLE_BIT(PORTA_DATA,BIT4);
+		break;
+	case GPIOB :
+		TOGGLE_BIT(PORTB_DATA,BIT7);
+		TOGGLE_BIT(PORTB_DATA,BIT6);
+		TOGGLE_BIT(PORTB_DATA,BIT5);
+		TOGGLE_BIT(PORTB_DATA,BIT4);
+		break;
+	case GPIOC :
+		TOGGLE_BIT(PORTC_DATA,BIT7);
+		TOGGLE_BIT(PORTC_DATA,BIT6);
+		TOGGLE_BIT(PORTC_DATA,BIT5);
+		TOGGLE_BIT(PORTC_DATA,BIT4);
+		break;
+	case GPIOD :
+		TOGGLE_BIT(PORTD_DATA,BIT7);
+		TOGGLE_BIT(PORTD_DATA,BIT6);
+		TOGGLE_BIT(PORTD_DATA,BIT5);
+		TOGGLE_BIT(PORTD_DATA,BIT4);
+		break;
+	default : // Handle this case
+		break;
+	}
 
 }
 
@@ -242,6 +431,25 @@ void gpioUpperNibbleToggle(uint8 port)
  */
 uint8 gpioUpperNibbleRead(uint8 port)
 {
+	uint8 out;
+	switch(port)
+	{
+	case GPIOA :
+		out = PORTA_PIN & 0b11110000;
+		break;
+	case GPIOB :
+		out = PORTB_PIN & 0b11110000;
+		break;
+	case GPIOC :
+		out = PORTC_PIN & 0b11110000;
+		break;
+	case GPIOD :
+		out = PORTD_PIN & 0b11110000;
+		break;
+	default : // Handle this case
+		break;
+	}
+	return out;
 
 }
 
@@ -258,6 +466,28 @@ uint8 gpioUpperNibbleRead(uint8 port)
  */
 void gpioLowerNibbleDirection(uint8 port, uint8 direction)
 {
+	direction &= 0b00001111;
+	switch(port)
+	{
+	case GPIOA :
+		PORTA_DIR &= 0b11110000;
+		PORTA_DIR |= direction;
+		break;
+	case GPIOB :
+		PORTB_DIR &= 0b11110000;
+		PORTB_DIR |= direction;
+		break;
+	case GPIOC :
+		PORTC_DIR &= 0b11110000;
+		PORTC_DIR |= direction;
+		break;
+	case GPIOD :
+		PORTD_DIR &= 0b11110000;
+		PORTD_DIR |= direction;
+		break;
+	default : // Handle this case
+		break;
+	}
 
 }
 
@@ -272,6 +502,28 @@ void gpioLowerNibbleDirection(uint8 port, uint8 direction)
  */
 void gpioLowerNibbleWrite(uint8 port, uint8 value)
 {
+	value &= 0b00001111;
+	switch(port)
+	{
+	case GPIOA :
+		PORTA_DATA &= 0b11110000;
+		PORTA_DATA |= value;
+		break;
+	case GPIOB :
+		PORTB_DATA &= 0b11110000;
+		PORTB_DATA |= value;
+		break;
+	case GPIOC :
+		PORTC_DATA &= 0b11110000;
+		PORTC_DATA |= value;
+		break;
+	case GPIOD :
+		PORTD_DATA &= 0b11110000;
+		PORTD_DATA |= value;
+		break;
+	default : // Handle this case
+		break;
+	}
 
 }
 
@@ -286,6 +538,35 @@ void gpioLowerNibbleWrite(uint8 port, uint8 value)
  */
 void gpioLowerNibbleToggle(uint8 port)
 {
+	switch(port)
+	{
+	case GPIOA :
+		TOGGLE_BIT(PORTA_DATA,BIT3);
+		TOGGLE_BIT(PORTA_DATA,BIT2);
+		TOGGLE_BIT(PORTA_DATA,BIT1);
+		TOGGLE_BIT(PORTA_DATA,BIT0);
+		break;
+	case GPIOB :
+		TOGGLE_BIT(PORTB_DATA,BIT3);
+		TOGGLE_BIT(PORTB_DATA,BIT2);
+		TOGGLE_BIT(PORTB_DATA,BIT1);
+		TOGGLE_BIT(PORTB_DATA,BIT0);
+		break;
+	case GPIOC :
+		TOGGLE_BIT(PORTC_DATA,BIT3);
+		TOGGLE_BIT(PORTC_DATA,BIT2);
+		TOGGLE_BIT(PORTC_DATA,BIT1);
+		TOGGLE_BIT(PORTC_DATA,BIT0);
+		break;
+	case GPIOD :
+		TOGGLE_BIT(PORTD_DATA,BIT3);
+		TOGGLE_BIT(PORTD_DATA,BIT2);
+		TOGGLE_BIT(PORTD_DATA,BIT1);
+		TOGGLE_BIT(PORTD_DATA,BIT0);
+		break;
+	default : // Handle this case
+		break;
+	}
 
 }
 
@@ -300,6 +581,26 @@ void gpioLowerNibbleToggle(uint8 port)
  */
 uint8 gpioLowerNibbleRead(uint8 port)
 {
+	uint8 out;
+	switch(port)
+	{
+	case GPIOA :
+		out = PORTA_PIN & 0b00001111;
+		break;
+	case GPIOB :
+		out = PORTB_PIN & 0b00001111;
+		break;
+	case GPIOC :
+		out = PORTC_PIN & 0b00001111;
+		break;
+	case GPIOD :
+		out = PORTD_PIN & 0b00001111;
+		break;
+	default : // Handle this case
+	break;
+	}
+	return out;
+
 
 }
 

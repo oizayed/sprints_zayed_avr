@@ -8,7 +8,7 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
-#include "std_types.h"
+#include "../../utils/std_types.h"
 
 #define GPIOA	0
 #define GPIOB	1
