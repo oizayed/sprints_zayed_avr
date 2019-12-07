@@ -288,19 +288,47 @@ uint8 gpioPinRead(uint8 port, uint8 pin)
 	switch(port)
 	{
 	case GPIOA :
-		out = GET_BIT(PORTA_PIN, pin);
+		if(GET_BIT(PORTA_PIN, pin))
+		{
+			out = HIGH;
+		}
+		else
+		{
+			out = LOW;
+		}
 		break;
 	case GPIOB :
-		out = GET_BIT(PORTB_PIN, pin);
+		if(GET_BIT(PORTB_PIN, pin))
+		{
+			out = HIGH;
+		}
+		else
+		{
+			out = LOW;
+		}
 		break;
 	case GPIOC :
-		out = GET_BIT(PORTC_PIN, pin);
+		if(GET_BIT(PORTC_PIN, pin))
+		{
+			out = HIGH;
+		}
+		else
+		{
+			out = LOW;
+		}
 		break;
 	case GPIOD :
-		out = GET_BIT(PORTD_PIN, pin);
+		if(GET_BIT(PORTD_PIN, pin))
+		{
+			out = HIGH;
+		}
+		else
+		{
+			out = LOW;
+		}
 		break;
 	default : // Handle this case
-		break;
+	break;
 	}
 	return out;
 }
@@ -597,7 +625,7 @@ uint8 gpioLowerNibbleRead(uint8 port)
 		out = PORTD_PIN & 0b00001111;
 		break;
 	default : // Handle this case
-	break;
+		break;
 	}
 	return out;
 

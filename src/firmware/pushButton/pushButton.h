@@ -8,8 +8,15 @@
 #ifndef PUSHBUTTON_H_
 #define PUSHBUTTON_H_
 #include "pushButtonConfig.h"
-#include "softwareDelay.h"
+#include "../../utils/softwareDelay/softwareDelay.h"
+/*
+typedef struct buttons
+{
+	En_buttonId En_buttonId;
+	En_buttonStatus_t En_buttonStatus_t;
 
+}buttons;
+*/
 typedef enum En_buttonId{
 	BTN_0,
 	BTN_1,

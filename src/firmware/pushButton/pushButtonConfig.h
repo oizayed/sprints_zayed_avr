@@ -8,7 +8,7 @@
 #ifndef PUSHBUTTONCONFIG_H_
 #define PUSHBUTTONCONFIG_H_
 
-#include "gpio.h"
+#include "../../mcal/gpio/gpio.h"
 
 
 #define BTN_MAX_NUM		(2)
