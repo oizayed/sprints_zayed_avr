@@ -9,18 +9,9 @@
 
 void SwDelay_ms(uint32 n)
 {
-	sint16 x = n / 1000;
-	n = n / x;
-	for(sint16 k = 0; k < x; k++)
+	for(uint32 i = 0; i < (n * 83); i++)
 	{
-		for(sint16 i = 0; i < 3; i++)
-		{
-			for(sint16 j = 0; j < (n * 1000); j++)
-			{
 
-			}
-
-		}
 	}
 
 }

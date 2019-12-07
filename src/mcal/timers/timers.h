@@ -8,8 +8,8 @@
 #ifndef TIMERS_H_
 #define TIMERS_H_
 
-#include "registers.h"
-#include "gpio.h"
+#include "../registers.h"
+#include "../gpio/gpio.h"
 
 /*
  * User Configuration Macros

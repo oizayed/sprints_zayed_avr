@@ -9,14 +9,7 @@
 #define PUSHBUTTON_H_
 #include "pushButtonConfig.h"
 #include "../../utils/softwareDelay/softwareDelay.h"
-/*
-typedef struct buttons
-{
-	En_buttonId En_buttonId;
-	En_buttonStatus_t En_buttonStatus_t;
 
-}buttons;
-*/
 typedef enum En_buttonId{
 	BTN_0,
 	BTN_1,
@@ -31,6 +24,16 @@ typedef enum En_buttonStatus_t{
 	Prereleased
 
 }En_buttonStatus_t;
+
+typedef struct buttons
+{
+	En_buttonId buttonID;
+	uint8 GPIOPort;
+	EN_bits buttonBit;
+	En_buttonStatus_t buttonStatus;
+
+
+}buttons;
 
 /**
  * Description: Initialize the BTN_x Pin state (where x 0, 1, 2, 3) to Input

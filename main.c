@@ -4,11 +4,11 @@
  *  Created on: Dec 3, 2019
  *      Author: Omar Zayed
  */
-void REQ7(void);
+void REQ6(void);
 
 int main(void)
 {
-	REQ7();
+	REQ6();
 	return 0;
 }
 
