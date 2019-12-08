@@ -59,7 +59,7 @@ typedef enum En_timer1perscaler_t{
 }En_timer1perscaler_t;
 
 typedef enum En_timer1Interrupt_t{
-	T1_POLLING=0,T1_INTERRUPT_NORMAL=0x04,T0_INTERRUPT_CMP_1B=0x08, T1_INTERRUPT_CMP_1A=0x10, T1_INTERRUPT_ICAPTURE = 0x20
+	T1_POLLING=0,T1_INTERRUPT_NORMAL=0x04,T1_INTERRUPT_CMP_1B=0x08, T1_INTERRUPT_CMP_1A=0x10, T1_INTERRUPT_ICAPTURE = 0x20
 }En_timer1Interrupt_t;
 
 
@@ -96,7 +96,7 @@ typedef enum En_timer2Interrupt_t{
  * @param outputCompare
  * @param interruptMask
  */
-void timer0Init(En_timer0Mode_t mode,En_timer0OC_t OC0,En_timer0perscaler_t prescal, uint8 initialValue, uint8 outputCompare, uint8 interruptMask);
+void timer0Init(En_timer0Mode_t mode,En_timer0OC_t OC0,En_timer0perscaler_t prescal, uint8 initialValue, uint8 outputCompare, En_timer0Interrupt_t interruptMask);
 
 /**
  * Description:
@@ -149,31 +149,31 @@ void timer0SwPWM(uint8 dutyCycle,uint8 freq);
  * @param outputCompare
  * @param interruptMask
  */
-void timer1Init(En_timer1Mode_t mode,En_timer1OC_t OC,En_timer1perscaler_t prescal, uint16 initialValue, uint8 outputCompareLow, uint8 outputCompareHigh,uint16 inputCapture, uint8 interruptMask);
+void timer1Init(En_timer1Mode_t mode,En_timer1OC_t OC1,En_timer1perscaler_t prescal, uint16 initialValue, uint16 outputCompareA, uint16 outputCompareB,uint16 inputCapture, En_timer1Interrupt_t interruptMask);
 
 /**
  * Description:
  * @param value
  */
-void timer1SetA(uint8 value);
+void timer1SetA(uint16 value);
 
 /**
  * Description:
  * @param value
  */
-void timer1SetB(uint8 value);
+void timer1SetB(uint16 value);
 
 /**
  * Description:
  * @return
  */
-uint8 timer1ReadA(void);
+uint16 timer1ReadA(void);
 
 /**
  * Description:
  * @return
  */
-uint8 timer1ReadB(void);
+uint16 timer1ReadB(void);
 
 /**
  * Description:
@@ -209,7 +209,7 @@ void timer1SwPWM(uint8 dutyCycle,uint8 freq);
  * @param outputCompare
  * @param interruptMask
  */
-void timer2Init(En_timer2Mode_t mode,En_timer2OC_t OC,En_timer2perscaler_t prescal, uint8 initialValue, uint8 outputCompare, uint8 assynchronous, uint8 interruptMask);
+void timer2Init(En_timer2Mode_t mode,En_timer2OC_t OC2,En_timer2perscaler_t prescal, uint8 initialValue, uint8 outputCompare, uint8 assynchronous, En_timer2Interrupt_t interruptMask);
 /**
  * Description:
  * @param value

@@ -25,6 +25,8 @@ typedef signed long int sint32;
 typedef signed long long sint64;
 typedef volatile uint8* const reg_type8;
 typedef volatile uint16* const reg_type16;
+typedef float float32;
+
 
 
 /************************************************************************/
