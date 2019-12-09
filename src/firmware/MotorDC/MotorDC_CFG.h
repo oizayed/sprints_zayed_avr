@@ -8,14 +8,14 @@
 #ifndef MOTORDC_CFG_H_
 #define MOTORDC_CFG_H_
 
-#include "gpio.h"
+#include "../../mcal/gpio/gpio.h"
 
 #define MOTOR_EN_1_GPIO		(GPIOD)
 #define MOTOR_EN_1_BIT		(BIT4)
 
 #define MOTOR_OUT_1A_GPIO	(GPIOD)
 #define MOTOR_OUT_1B_GPIO	(GPIOD)
-#define MOTOR_OUT_1A_BIT	(BIT1)
+#define MOTOR_OUT_1A_BIT	(BIT2)
 #define MOTOR_OUT_1B_BIT	(BIT3)
 
 

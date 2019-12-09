@@ -24,7 +24,7 @@
 #define Timer2_PRESC_CLR_Mask			0b11111000
 #define Timer2_Int_CLR_Mask				0b00111111
 #define Timer2_Delay_Begin_Value		0b00000000
-#define Timer2_Delay_End_us				0b00000010
+#define Timer2_Delay_End_us				0b00011001
 #define Timer2_Delay_End_Value			0b11111010
 
 
@@ -379,10 +379,11 @@ void timer2SwPWM(uint8 dutyCycle,uint8 freq)
 
 /*
  * user defined
+ * This is delay 100us
  */
 void timer2Delay_us(uint32 delay)
 {
-	timer2Init(T2_COMP_MODE, T2_OC0_DIS, T2_PRESCALER_8, Timer2_Delay_Begin_Value, Timer2_Delay_End_us, Timer2_Delay_Begin_Value, T2_POLLING);
+	timer2Init(T2_COMP_MODE, T2_OC0_DIS, T2_PRESCALER_64, Timer2_Delay_Begin_Value, Timer2_Delay_End_us, Timer2_Delay_Begin_Value, T2_POLLING);
 	timer2Start();
 	while(delay)
 	{

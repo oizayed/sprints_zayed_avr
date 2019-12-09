@@ -8,14 +8,14 @@
 #ifndef MOTORDC_H_
 #define MOTORDC_H_
 #include "MotorDC_CFG.h"
-#include "timers.h"
+#include "../../mcal/timers/timers.h"
 
 typedef enum En_motorType_t{
 	MOT_1,
 	MOT_2
 }En_motorType_t;
 
-typedef enum En_motorType_t{
+typedef enum En_motorDir_t{
 	STOP,
 	FORWARD,
 	BACKWARD
