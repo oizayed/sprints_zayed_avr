@@ -11,6 +11,7 @@
 #define Timer0_Int_CLR_Mask				0b11111100
 #define Timer0_Delay_Begin_Value		0b00000000
 #define Timer0_Delay_End_Value			0b11111010
+#define Timer0_PWM_End_Value			0b11001000
 
 #define Timer1_Mode_CLR_Mask			0b1111111111100111
 #define Timer1_OCM_CLR_Mask				0b0000111111111111
@@ -27,22 +28,32 @@
 #define Timer2_Delay_End_us				0b00011001
 #define Timer2_Delay_End_Value			0b11111010
 
+#define TotalTime						255
 
 #include "timers.h"
 
 En_timer0perscaler_t Timer0Prescaler;
 En_timer1perscaler_t Timer1Prescaler;
 En_timer2perscaler_t Timer2Prescaler;
+uint8 DC;
+uint8 count = 0;
 
 
 
 /*===========================Timer0 Control===============================*/
 /**
- * Description:
- * @param control
- * @param initialValue
- * @param outputCompare
- * @param interruptMask
+ * Description: Initiates the timer with the required working values by setting the TCCR, OCR and TIMSK registers.
+ * @param control : the output compare mode and takes the following values :
+ * 					T0_OC0_DIS=0
+ * 					T0_OC0_TOGGLE=0x10
+ * 					T0_OC0_CLEAR=0x20
+ * 					T0_OC0_SET=0x30
+ * @param initialValue : the beginning value of the timer.
+ * @param outputCompare : the value which the timer will compare at.
+ * @param interruptMask : the interrupt mode and takes the following values :
+ * 							T0_POLLING=0
+ * 							T0_INTERRUPT_NORMAL=0x01
+ * 							T0_INTERRUPT_CMP=0x02
  */
 void timer0Init(En_timer0Mode_t mode,En_timer0OC_t OC0,En_timer0perscaler_t prescal, uint8 initialValue, uint8 outputCompare, En_timer0Interrupt_t interruptMask)
 {
@@ -78,8 +89,8 @@ void timer0Init(En_timer0Mode_t mode,En_timer0OC_t OC0,En_timer0perscaler_t pres
 }
 
 /**
- * Description:
- * @param value
+ * Description: sets the beginning value of the timer to the TCNT register.
+ * @param value : the beginning value.
  */
 void timer0Set(uint8 value)
 {
@@ -87,8 +98,8 @@ void timer0Set(uint8 value)
 }
 
 /**
- * Description:
- * @return
+ * Description: reads the TCNT register.
+ * @return : the value of the timer.
  */
 uint8 timer0Read(void)
 {
@@ -96,7 +107,7 @@ uint8 timer0Read(void)
 }
 
 /**
- * Description:
+ * Description: assigns the prescaler to the TCCR which makes the timer start working
  */
 void timer0Start(void)
 {
@@ -105,7 +116,7 @@ void timer0Start(void)
 }
 
 /**
- * Description:
+ * Description: clears the prescaler part in the TCCR which makes the timer stop working
  */
 void timer0Stop(void)
 {
@@ -113,8 +124,8 @@ void timer0Stop(void)
 }
 
 /**
- * Description:
- * @param delay
+ * Description: a function to make delay in the code.
+ * @param delay : the time of the delay required.
  */
 void timer0Delay_ms(uint16 delay)
 {
@@ -133,17 +144,34 @@ void timer0Delay_ms(uint16 delay)
 }
 
 /**
- * Description:
- * @param dutyCycle
+ * Description: this function forms the required PWM output.
+ * @param dutyCycle : a uint8 number which shows the time-on relative to the total time of the PWM
+ * @param freq : a uint8 number (range between 5 to 255) which will lead to 500Hz if 5 and 145Hz if 255
  */
 void timer0SwPWM(uint8 dutyCycle,uint8 freq)
 {
-	float DC = dutyCycle / 255.00;
-	gpioPinWrite(GPIOB, BIT4, HIGH);
-	timer0Delay_ms(DC * 10);
-	gpioPinWrite(GPIOB, BIT4, LOW);
-	timer0Delay_ms((1.00 - DC) * 10);
+	DC = dutyCycle;
+	timer0Init(T0_COMP_MODE,T0_OC0_DIS, T0_PRESCALER_8, Timer0_Delay_Begin_Value, freq, T0_INTERRUPT_CMP);
+	sei();
+	timer0Start();
 }
+
+ISR(TIMER0_COMP_vect)
+{
+	if(count == DC)
+	{
+		gpioPinWrite(GPIOD, BIT7, HIGH);
+	}
+	if(count == TotalTime)
+	{
+		gpioPinWrite(GPIOD, BIT7, LOW);
+		count = 0;
+	}
+	count++;
+	timer0Set(0);
+	sei();
+}
+
 
 
 /*===========================Timer1 Control===============================*/

@@ -28,17 +28,6 @@ void REQ1311(void)
 	}
 }
 
-ISR(TIMER0_COMP_vect)
-{
-	timer0Set(0);
-	counter++;
-	if(counter == 1000)
-	{
-		Led_Toggle(LED_0);
-		counter = 0;
 
-	}
-	sei();
-}
 
 

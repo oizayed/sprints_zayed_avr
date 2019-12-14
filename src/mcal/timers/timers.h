@@ -10,6 +10,7 @@
 
 #include "../registers.h"
 #include "../gpio/gpio.h"
+#include "../../utils/interrupts.h"
 
 /*
  * User Configuration Macros
