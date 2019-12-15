@@ -25,6 +25,10 @@
 #define T2_PWM_GPIO GPIOD
 #define T2_PWM_BIT	BIT2
 
+#define T0TotalTime						255
+#define T1TotalTime						255
+#define T2TotalTime						255
+
 
 typedef enum En_timer0Mode_t{
 	T0_NORMAL_MODE=0,T0_COMP_MODE=0x08
@@ -156,25 +160,13 @@ void timer1Init(En_timer1Mode_t mode,En_timer1OC_t OC1,En_timer1perscaler_t pres
  * Description:
  * @param value
  */
-void timer1SetA(uint16 value);
-
-/**
- * Description:
- * @param value
- */
-void timer1SetB(uint16 value);
+void timer1Set(uint16 value);
 
 /**
  * Description:
  * @return
  */
-uint16 timer1ReadA(void);
-
-/**
- * Description:
- * @return
- */
-uint16 timer1ReadB(void);
+uint16 timer1Read(void);
 
 /**
  * Description:

@@ -28,15 +28,16 @@
 #define Timer2_Delay_End_us				0b00011001
 #define Timer2_Delay_End_Value			0b11111010
 
-#define TotalTime						255
+
 
 #include "timers.h"
 
 En_timer0perscaler_t Timer0Prescaler;
 En_timer1perscaler_t Timer1Prescaler;
 En_timer2perscaler_t Timer2Prescaler;
-uint8 DC;
-uint8 count = 0;
+
+uint8 T1DC;
+uint8 T2DC;
 
 
 
@@ -150,26 +151,11 @@ void timer0Delay_ms(uint16 delay)
  */
 void timer0SwPWM(uint8 dutyCycle,uint8 freq)
 {
-	DC = dutyCycle;
-	timer0Init(T0_COMP_MODE,T0_OC0_DIS, T0_PRESCALER_8, Timer0_Delay_Begin_Value, freq, T0_INTERRUPT_CMP);
-	sei();
-	timer0Start();
-}
-
-ISR(TIMER0_COMP_vect)
-{
-	if(count == DC)
-	{
-		gpioPinWrite(GPIOD, BIT7, HIGH);
-	}
-	if(count == TotalTime)
-	{
-		gpioPinWrite(GPIOD, BIT7, LOW);
-		count = 0;
-	}
-	count++;
-	timer0Set(0);
-	sei();
+	float DC = dutyCycle / 255.00;
+	gpioPinWrite(GPIOB, BIT4, HIGH);
+	timer0Delay_ms(DC * 10);
+	gpioPinWrite(GPIOB, BIT4, LOW);
+	timer0Delay_ms((1.00 - DC) * 10);
 }
 
 

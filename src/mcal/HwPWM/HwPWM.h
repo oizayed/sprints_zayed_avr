@@ -2,7 +2,7 @@
  * HwPWM.h
  *
  *  Created on: Oct 28, 2019
- *      Author: Sprints
+ *      Author: Think
  */
 
 #ifndef HWPWM_H_
