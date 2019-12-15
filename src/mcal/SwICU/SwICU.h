@@ -8,8 +8,9 @@
 #ifndef SWICU_H_
 #define SWICU_H_
 
-#include "interrupt.h"
-#include "timers.h"
+#include "../../utils/interrupts.h"
+#include "../timers/timers.h"
+#include "../registers.h"
 
 typedef enum {
 	SwICU_EdgeFalling = 2,
