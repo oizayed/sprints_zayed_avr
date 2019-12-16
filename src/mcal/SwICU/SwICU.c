@@ -8,7 +8,7 @@
 
 #include "SwICU.h"
 
-uint32 T2_counter = 0;
+uint8 T2_counter = 0;
 
 void SwICU_Init(SwICU_Edge_TypeDef inputCaptureEdge)
 {
@@ -90,5 +90,8 @@ void SwICU_Disable(void)
 
 ISR(TIMER2_OVF_vect)
 {
-	T2_counter++;
+	if(T2_counter < 255)
+	{
+		T2_counter++;
+	}
 }

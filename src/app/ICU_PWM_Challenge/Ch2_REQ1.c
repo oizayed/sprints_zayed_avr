@@ -34,6 +34,7 @@ void Ch2_REQ1(void)
 	}
 }
 
+/*
 ISR(INT2_vect)
 {
 	static volatile uint8 TimerOutput;
@@ -80,5 +81,5 @@ ISR(INT2_vect)
 	}
 }
 
-
+*/
 
