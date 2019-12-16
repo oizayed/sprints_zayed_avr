@@ -16,17 +16,17 @@ void REQ1412(void)
 {
 	MotorDC_Init(MOT_1);
 	MotorDC_Init(MOT_2);
-	//pushButton_Init(BTN_0);
+	pushButton_Init(BTN_0);
 	MotorDC_Dir(MOT_1, FORWARD);
 	MotorDC_Dir(MOT_2, FORWARD);
-	gpioPinDirection(GPIOB, BIT7, OUTPUT);
-	gpioPinDirection(GPIOD, BIT7, OUTPUT);
-	Timer0PWM = 150;
-	timer0Init(T0_COMP_MODE,T0_OC0_DIS, T0_PRESCALER_NO, 0, 0, T0_INTERRUPT_CMP);
-	timer1Init(T1_COMP_MODE_OCR1A_TOP,T1_OC0_DIS,T1_PRESCALER_8, 0, 2000, 0,0, T1_INTERRUPT_CMP_1A);
+	//gpioPinDirection(GPIOB, BIT7, OUTPUT);
+	//gpioPinDirection(GPIOD, BIT7, OUTPUT);
+	Timer0PWM = 0; //range from 1 to 200
+	timer0Init(T0_NORMAL_MODE,T0_OC0_DIS, T0_PRESCALER_8, 0, 0, T0_INTERRUPT_NORMAL);
+	//timer1Init(T1_COMP_MODE_OCR1A_TOP,T1_OC0_DIS,T1_PRESCALER_8, 0, 2000, 0,0, T1_INTERRUPT_CMP_1A);
 	sei();
 	timer0Start();
-	timer1Start();
+	//timer1Start();
 	while (1)
 	{
 
@@ -93,37 +93,25 @@ ISR(TIMER1_COMPA_vect)
 
 }
 
+ */
 
-ISR(TIMER0_COMP_vect)
+ISR(TIMER0_OVF_vect)
 {
-	gpioPinToggle(GPIOB, BIT7);
-
-
 	static volatile uint8 Timer0CompCount = 0;
-	Timer0CompCount++;
-	if(Timer0PWM == 0)
+	if(Timer0CompCount == Timer0PWM)
 	{
 		gpioPinWrite(MOTOR_EN_1_GPIO, MOTOR_EN_1_BIT, LOW);
 		gpioPinWrite(MOTOR_EN_2_GPIO, MOTOR_EN_2_BIT, LOW);
 	}
-	else if(Timer0PWM == 255)
-	{
-		gpioPinWrite(MOTOR_EN_1_GPIO, MOTOR_EN_1_BIT, HIGH);
-		gpioPinWrite(MOTOR_EN_2_GPIO, MOTOR_EN_2_BIT, HIGH);
-	}
-	else if(Timer0CompCount == Timer0PWM)
-	{
-		gpioPinWrite(MOTOR_EN_1_GPIO, MOTOR_EN_1_BIT, LOW);
-		gpioPinWrite(MOTOR_EN_2_GPIO, MOTOR_EN_2_BIT, LOW);
-	}
-	else if(Timer0CompCount == 200)
+	else if(Timer0CompCount == 1)
 	{
 		gpioPinWrite(MOTOR_EN_1_GPIO, MOTOR_EN_1_BIT, HIGH);
 		gpioPinWrite(MOTOR_EN_2_GPIO, MOTOR_EN_2_BIT, HIGH);
 	}
 
+	Timer0CompCount++;
 }
 
-*/
+
 
 

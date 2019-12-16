@@ -4,11 +4,11 @@
  *  Created on: Dec 3, 2019
  *      Author: Omar Zayed
  */
-void Ch2_REQ1(void);
+void REQ1412(void);
 
 int main(void)
 {
-	Ch2_REQ1();
+	REQ1412();
 	return 0;
 }
 
