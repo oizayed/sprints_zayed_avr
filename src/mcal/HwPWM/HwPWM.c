@@ -5,11 +5,11 @@
  *      Author: Omar Zayed
  */
 #define Timer1_CLR_Mask					0b0000000000000000
-#define Timer1_COM_Mask					0b1111000000000000
+#define Timer1_COM_Mask					0b1010000000000000
 #define Timer1_WGN_Mask					0b0000000000010000
 #define Timer1_PRE_Mask					T1_PRESCALER_NO
-
 #include "HwPWM.h"
+
 
 void HwPWM_Init(void)
 {
@@ -51,6 +51,8 @@ void HwPWM_Init(void)
 
 void HwPWM_ChangeWidth(uint8 duty, uint32 frequency)
 {
+
 	ICR1 = 8000000 / frequency;
 	OCR1A = duty * 80000 / frequency;
+	OCR1B = duty * 80000 / frequency;
 }

@@ -9,6 +9,7 @@
 #include "MotorDC_CFG.h"
 #include "../../mcal/gpio/gpio.h"
 #include "../../mcal/timers/timers.h"
+#include "../../mcal/HwPWM/HwPWM.h"
 
 
 
@@ -33,6 +34,7 @@ void MotorDC_Init(En_motorType_t MOT_x)
 	default:
 		break;
 	}
+	HwPWM_Init();
 
 }
 
@@ -110,5 +112,5 @@ void MotorDC_Speed_PollingWithT0(uint8 speed)
  */
 void MotorDC_Speed_HwPWM(uint8 speed)
 {
-
+	HwPWM_ChangeWidth(speed, 400);
 }
